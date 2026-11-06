@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
-const AGE_KEY = 'age_confirmed'
+import { AGE_KEY, AGE_PENDING } from '@/lib/ageCheck'
+
 // the legal pages stay readable, so visitors can check them before confirming
 const OPEN_PAGES = ['/legal']
 
@@ -31,6 +32,8 @@ export function AgeGate() {
     if (ageConfirmed()) return
     if (OPEN_PAGES.some((p) => pathname.startsWith(p))) dialog.current?.close()
     else if (!dialog.current?.open) dialog.current?.showModal()
+    // the dialog's own backdrop takes over from the cover painted before the page (AGE_COVER_SCRIPT)
+    document.documentElement.classList.remove(AGE_PENDING)
   }, [pathname])
 
   const confirm = () => {

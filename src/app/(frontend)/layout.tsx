@@ -9,6 +9,7 @@ import { getSampleCampaign } from '@/lib/samples'
 import { getCurrentCustomer, getPayloadClient } from '@/lib/payload'
 import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, SITE_NAME, indexable } from '@/lib/seo'
 import { siteUrl } from '@/lib/site'
+import { AGE_COVER_SCRIPT } from '@/lib/ageCheck'
 import { logoutAction } from './actions'
 import { AgeGate } from './components/AgeGate'
 import { AmbientLight } from './components/AmbientLight'
@@ -120,7 +121,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const legalOnly = legalPages.filter((p) => !(p.slug in HELP_LABELS))
 
   return (
-    <html className={`${serif.variable} ${sans.variable}`} lang="en-GB">
+    // the age cover script may add a class to <html> before React loads
+    <html className={`${serif.variable} ${sans.variable}`} lang="en-GB" suppressHydrationWarning>
+      <head>
+        {/* plain inline script on purpose: it must run while the HTML is parsed, before the
+            first paint (next/script queues it until Next's own JavaScript has loaded) */}
+        <script dangerouslySetInnerHTML={{ __html: AGE_COVER_SCRIPT }} />
+      </head>
       <body>
         <AmbientLight />
         <header className="site-header">
