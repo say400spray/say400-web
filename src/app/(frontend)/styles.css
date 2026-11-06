@@ -4784,9 +4784,9 @@ textarea {
   }
 }
 
-/* ---------- benefits: same cards and icon badges as the steps ---------- */
+/* ---------- benefits: an open row on the page, no boxes, thin gold lines between ---------- */
 .benefits {
-  gap: 24px;
+  gap: 0;
   border: 0;
 }
 
@@ -4795,41 +4795,49 @@ textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 32px 44px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: linear-gradient(160deg, var(--surface-2), var(--bg));
+  padding: 28px 36px 32px;
+  border: 0;
+  background: none;
   transition:
-    border-color 0.4s,
-    transform 0.6s var(--ease),
-    box-shadow 0.6s var(--ease),
-    opacity 0.9s var(--ease);
+    opacity 0.9s var(--ease),
+    transform 0.9s var(--ease);
 }
 
+/* a short line that fades out at both ends, so the row reads as one piece */
 .benefit + .benefit {
-  border-left: 1px solid var(--border);
+  border-left: 0;
 }
 
-.benefit:hover {
-  border-color: var(--border-strong);
-  transform: translateY(-6px);
-  box-shadow: 0 30px 60px -36px rgba(249, 207, 115, 0.35);
+.benefit + .benefit::after {
+  content: '';
+  position: absolute;
+  top: 18%;
+  bottom: 18%;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border-strong), transparent);
 }
 
 .benefit .step-badge {
-  margin-bottom: 22px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 18px;
+  box-shadow: none;
+}
+
+.benefit .step-icon {
+  width: 32px;
+  height: 32px;
 }
 
 .benefit:hover .step-badge {
-  transform: scale(1.06);
-  box-shadow:
-    0 0 0 6px var(--surface),
-    0 0 34px -4px rgba(249, 207, 115, 0.45);
+  transform: scale(1.08);
+  box-shadow: 0 0 28px -6px rgba(249, 207, 115, 0.5);
 }
 
 .benefit h3 {
-  margin: 0 0 8px;
-  font-size: 1.5rem;
+  margin: 0 0 6px;
+  font-size: 1.35rem;
 }
 
 /* the loops */
@@ -4887,38 +4895,40 @@ textarea {
 }
 
 @media (max-width: 860px) {
-  .benefits {
-    gap: 14px;
-  }
-
-  .benefit + .benefit {
-    border-top: 1px solid var(--border);
-  }
-
   .benefit {
     display: grid;
-    grid-template-columns: 64px 1fr;
-    column-gap: 20px;
+    grid-template-columns: 52px 1fr;
+    column-gap: 18px;
     align-items: center;
-    padding: 24px;
+    padding: 18px 4px;
     text-align: left;
+  }
+
+  .benefit + .benefit::after {
+    top: 0;
+    bottom: auto;
+    left: 10%;
+    right: 10%;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-strong), transparent);
   }
 
   .benefit .step-badge {
     grid-row: span 2;
-    width: 60px;
-    height: 60px;
+    width: 52px;
+    height: 52px;
     margin: 0;
   }
 
   .benefit .step-icon {
-    width: 34px;
-    height: 34px;
+    width: 28px;
+    height: 28px;
   }
 
   .benefit h3 {
     margin: 0 0 2px;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
   }
 }
 

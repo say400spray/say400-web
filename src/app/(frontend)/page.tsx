@@ -351,7 +351,6 @@ export default async function HomePage() {
               <div
                 className="benefit"
                 data-reveal
-                data-spotlight
                 key={b.title}
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
