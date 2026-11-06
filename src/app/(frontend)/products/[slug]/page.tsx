@@ -7,6 +7,7 @@ import { offerFor } from '@/lib/offer'
 import { ratingSummary, visibleReviewsWhere } from '@/lib/reviews'
 import { sizeOptions, variantOptions } from '@/lib/variants'
 import { getCurrentCustomer, getPayloadClient } from '@/lib/payload'
+import { cached } from '@/lib/cms'
 import { breadcrumbJsonLd, productImages, productJsonLd } from '@/lib/productSeo'
 import { jsonLd } from '@/lib/seo'
 import { FaqList } from '../../components/FaqList'
@@ -30,12 +31,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const payload = await getPayloadClient()
-  const { docs } = await payload.find({
-    collection: 'products',
-    where: { slug: { equals: slug } },
-    limit: 1,
-    overrideAccess: false,
-  })
+  const { docs } = await cached(['product', slug], () =>
+    payload.find({
+      collection: 'products',
+      where: { slug: { equals: slug } },
+      limit: 1,
+      overrideAccess: false,
+    }),
+  )
   const product = docs[0]
   if (!product) return {}
   const description =
@@ -69,25 +72,29 @@ export default async function ProductPage({
   const { slug } = await params
   const { variant: initialVariant } = await searchParams
   const payload = await getPayloadClient()
-  const { docs } = await payload.find({
-    collection: 'products',
-    where: { slug: { equals: slug } },
-    limit: 1,
-    overrideAccess: false,
-  })
+  const { docs } = await cached(['product', slug], () =>
+    payload.find({
+      collection: 'products',
+      where: { slug: { equals: slug } },
+      limit: 1,
+      overrideAccess: false,
+    }),
+  )
   const product = docs[0]
   if (!product) notFound()
 
   const [customer, { docs: reviews }] = await Promise.all([
     getCurrentCustomer(),
-    payload.find({
-      collection: 'reviews',
-      where: visibleReviewsWhere({ product: { equals: product.id } }),
-      sort: '-createdAt',
-      limit: 20,
-      depth: 0,
-      overrideAccess: false,
-    }),
+    cached(['product-reviews', product.id], () =>
+      payload.find({
+        collection: 'reviews',
+        where: visibleReviewsWhere({ product: { equals: product.id } }),
+        sort: '-createdAt',
+        limit: 20,
+        depth: 0,
+        overrideAccess: false,
+      }),
+    ),
   ])
   const offer = await offerFor(payload, customer)
   const currency = customer?.shipping?.country ? currencyFor(customer.shipping.country) : undefined

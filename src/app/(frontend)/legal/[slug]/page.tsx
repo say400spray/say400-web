@@ -3,6 +3,7 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 import { notFound } from 'next/navigation'
 
 import { getPayloadClient } from '@/lib/payload'
+import { cached } from '@/lib/cms'
 import { pageMeta } from '@/lib/seo'
 import { BackLink } from '../../components/BackLink'
 import { CompanyDetails } from '../../components/CompanyDetails'
@@ -29,13 +30,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const payload = await getPayloadClient()
-  const { docs } = await payload.find({
-    collection: 'pages',
-    where: { slug: { equals: slug } },
-    limit: 1,
-    depth: 0,
-    select: { title: true },
-  })
+  const { docs } = await cached(['legal-page', slug], () =>
+    payload.find({ collection: 'pages', where: { slug: { equals: slug } }, limit: 1 }),
+  )
   if (!docs[0]) return {}
   return pageMeta(
     docs[0].title,
@@ -47,11 +44,9 @@ export async function generateMetadata({
 export default async function LegalPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const payload = await getPayloadClient()
-  const { docs } = await payload.find({
-    collection: 'pages',
-    where: { slug: { equals: slug } },
-    limit: 1,
-  })
+  const { docs } = await cached(['legal-page', slug], () =>
+    payload.find({ collection: 'pages', where: { slug: { equals: slug } }, limit: 1 }),
+  )
   const page = docs[0]
   if (!page) notFound()
 

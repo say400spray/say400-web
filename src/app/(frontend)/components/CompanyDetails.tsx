@@ -1,9 +1,10 @@
+import { cached } from '@/lib/cms'
 import { getPayloadClient } from '@/lib/payload'
 
 /** Seller identity block, required on legal pages (UK and EU distance selling rules). */
 export async function CompanyDetails() {
   const payload = await getPayloadClient()
-  const c = await payload.findGlobal({ slug: 'company-info' })
+  const c = await cached(['company-info'], () => payload.findGlobal({ slug: 'company-info' }))
 
   return (
     <aside className="company-details">

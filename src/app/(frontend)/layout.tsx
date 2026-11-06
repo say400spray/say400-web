@@ -1,4 +1,5 @@
 import { Jost, Playfair_Display } from 'next/font/google'
+import { cached } from '@/lib/cms'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
@@ -76,22 +77,26 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const payload = await getPayloadClient()
   const [{ docs: legalPages }, company, settings, offer, { totalDocs: offerProducts }] =
     await Promise.all([
-      payload.find({
-        collection: 'pages',
-        where: { showInFooter: { equals: true } },
-        sort: 'footerOrder',
-        limit: 20,
-        depth: 0,
-        select: { title: true, slug: true },
-      }),
-      payload.findGlobal({ slug: 'company-info' }),
-      payload.findGlobal({ slug: 'shop-settings' }),
+      cached(['footer-pages'], () =>
+        payload.find({
+          collection: 'pages',
+          where: { showInFooter: { equals: true } },
+          sort: 'footerOrder',
+          limit: 20,
+          depth: 0,
+          select: { title: true, slug: true },
+        }),
+      ),
+      cached(['company-info'], () => payload.findGlobal({ slug: 'company-info' })),
+      cached(['shop-settings'], () => payload.findGlobal({ slug: 'shop-settings' })),
       offerFor(payload, customer),
       // the pop-up only makes sense while some size actually has the offer
-      payload.count({
-        collection: 'products',
-        where: { active: { equals: true }, 'sizes.firstOrderDeal': { equals: true } },
-      }),
+      cached(['offer-products'], () =>
+        payload.count({
+          collection: 'products',
+          where: { active: { equals: true }, 'sizes.firstOrderDeal': { equals: true } },
+        }),
+      ),
     ])
 
   // free sample pop-up for visitors who have not asked for one yet, while samples are left

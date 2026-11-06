@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { cached } from '@/lib/cms'
 import { currencyFor } from '@/lib/countries'
 import { formatMoney } from '@/lib/orderStatus'
 import { getCurrentCustomer, getPayloadClient } from '@/lib/payload'
@@ -48,31 +49,37 @@ export default async function HomePage() {
   const payload = await getPayloadClient()
   const [{ docs: products }, { docs: reviews }, faq, customer, { docs: videoDocs }] =
     await Promise.all([
-      payload.find({
-        collection: 'products',
-        where: { active: { equals: true } },
-        sort: 'createdAt',
-        limit: 20,
-        overrideAccess: false,
-      }),
-      payload.find({
-        collection: 'reviews',
-        where: visibleReviewsWhere(),
-        sort: '-createdAt',
-        limit: 6,
-        depth: 0,
-        overrideAccess: false,
-      }),
-      payload.findGlobal({ slug: 'faq' }),
+      cached(['home-products'], () =>
+        payload.find({
+          collection: 'products',
+          where: { active: { equals: true } },
+          sort: 'createdAt',
+          limit: 20,
+          overrideAccess: false,
+        }),
+      ),
+      cached(['home-reviews'], () =>
+        payload.find({
+          collection: 'reviews',
+          where: visibleReviewsWhere(),
+          sort: '-createdAt',
+          limit: 6,
+          depth: 0,
+          overrideAccess: false,
+        }),
+      ),
+      cached(['faq'], () => payload.findGlobal({ slug: 'faq' })),
       getCurrentCustomer(),
-      payload.find({
-        collection: 'videos',
-        where: { active: { equals: true } },
-        sort: 'order',
-        limit: 20,
-        depth: 1,
-        overrideAccess: false,
-      }),
+      cached(['home-videos'], () =>
+        payload.find({
+          collection: 'videos',
+          where: { active: { equals: true } },
+          sort: 'order',
+          limit: 20,
+          depth: 1,
+          overrideAccess: false,
+        }),
+      ),
     ])
   const [featured, ...others] = products
   // the main product's boxes, one card per colour / strength
@@ -96,7 +103,7 @@ export default async function HomePage() {
   const fromPrice = fromPrices.length ? Math.min(...fromPrices) : null
   const { average: avgRating, count: ratingCount } = ratingSummary(reviews)
 
-  const company = await payload.findGlobal({ slug: 'company-info', depth: 0 })
+  const company = await cached(['company-info'], () => payload.findGlobal({ slug: 'company-info' }))
   const structuredData = [
     {
       '@context': 'https://schema.org',

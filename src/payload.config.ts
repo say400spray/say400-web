@@ -20,6 +20,7 @@ import { sampleReviewEmailTask } from './jobs/sampleReviewEmail'
 import { CompanyInfo } from './globals/CompanyInfo'
 import { Faq } from './globals/Faq'
 import { ShopSettings } from './globals/ShopSettings'
+import { refreshesCollection, refreshesGlobal, SAMPLES_TAG } from './lib/cms'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -32,8 +33,15 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Orders, SampleRequests, Customers, Products, Reviews, Videos, Pages, Media, Users],
-  globals: [ShopSettings, CompanyInfo, Faq],
+  // content shown on the site is cached; saving it in the admin refreshes the site right away
+  collections: [
+    Orders,
+    refreshesCollection(SampleRequests, SAMPLES_TAG),
+    Customers,
+    ...[Products, Reviews, Videos, Pages, Media].map((c) => refreshesCollection(c)),
+    Users,
+  ],
+  globals: [ShopSettings, CompanyInfo, Faq].map(refreshesGlobal),
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -41,7 +49,8 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || '',
+      // Vercel's Neon integration names it SAY400_STORAGE_DATABASE_URL (pooled connection)
+      connectionString: process.env.DATABASE_URL || process.env.SAY400_STORAGE_DATABASE_URL || '',
     },
   }),
   sharp,
