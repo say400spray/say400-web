@@ -109,3 +109,43 @@ export function CheckIcon() {
 }
 
 export const BENEFIT_ICONS = [LeafIcon, BottleIcon, CheckIcon]
+
+export function FollowIcon() {
+  return (
+    <svg aria-hidden className="step-icon step-icon-follow" viewBox="0 0 48 48">
+      <g className="follow-beat" {...common}>
+        <path d="M24 38s-13-7.6-13-17a7 7 0 0 1 13-3.6A7 7 0 0 1 37 21c0 9.4-13 17-13 17z" />
+      </g>
+      <g className="step-sparks" fill="currentColor">
+        <path d="M38 8l.8 2.4 2.4.8-2.4.8L38 14.4l-.8-2.4-2.4-.8 2.4-.8z" />
+      </g>
+    </svg>
+  )
+}
+
+export function GiftIcon() {
+  return (
+    <svg aria-hidden className="step-icon step-icon-gift" viewBox="0 0 48 48">
+      <g {...common}>
+        <path d="M12 22h24v17a1 1 0 0 1-1 1H13a1 1 0 0 1-1-1z" />
+        <path d="M24 22v18" />
+      </g>
+      <g className="gift-lid" {...common}>
+        <path d="M10 16h28v6H10z" />
+        <path d="M24 16c-2-5-8-7-9-3s6 3 9 3c3 0 10 1 9-3s-7-2-9 3z" />
+      </g>
+    </svg>
+  )
+}
+
+export function StarIcon() {
+  return (
+    <svg aria-hidden className="step-icon step-icon-star" viewBox="0 0 48 48">
+      <g className="star-glow" {...common}>
+        <path d="M24 9l4.5 9.3 10.2 1.4-7.4 7.1 1.8 10.1L24 32.1l-9.1 4.8 1.8-10.1-7.4-7.1 10.2-1.4z" />
+      </g>
+    </svg>
+  )
+}
+
+export const SAMPLE_STEP_ICONS = [FollowIcon, GiftIcon, StarIcon]

@@ -6,6 +6,7 @@ import { getSampleCampaign } from '@/lib/samples'
 import { pageMeta } from '@/lib/seo'
 import { requestSampleAction, sampleReviewAction } from '../actions'
 import { ActionForm } from '../components/Forms'
+import { SAMPLE_STEP_ICONS } from '../components/StepIcons'
 
 export const dynamic = 'force-dynamic'
 
@@ -14,6 +15,21 @@ export const metadata = pageMeta(
   'Try Say400 Men Spray for free: a 5 ml sample for the first customers, delivered in plain packaging to the UK and the EU. Adults 18+.',
   '/free-sample',
 )
+
+const SAMPLE_STEPS = [
+  {
+    title: 'Follow us',
+    text: 'Follow Say400 and join our Telegram group, so you hear about new boxes and offers first.',
+  },
+  {
+    title: 'Ask for your sample',
+    text: 'One per person. Posted from the UK in plain packaging, free to the UK and the EU.',
+  },
+  {
+    title: 'Leave your review',
+    text: 'Once you have tried it, tell us what you think. We will email you a reminder.',
+  },
+]
 
 const HERE = '/free-sample'
 
@@ -103,34 +119,30 @@ export default async function FreeSamplePage({
       </header>
 
       {campaign && !request && (
-        <ol className="steps sample-steps">
-          <li>
-            <span className="step-number">01</span>
-            <h3>Follow us</h3>
-            <p>
-              Follow Say400 and join our Telegram group, so you hear about new boxes and offers
-              first.
-            </p>
-            {campaign.socials.length > 0 && (
-              <p className="sample-socials">
-                {campaign.socials.map((s) => (
-                  <a href={s.url} key={s.name} rel="noopener noreferrer" target="_blank">
-                    {s.name}
-                  </a>
-                ))}
-              </p>
-            )}
-          </li>
-          <li>
-            <span className="step-number">02</span>
-            <h3>Ask for your sample</h3>
-            <p>One per person. Posted from the UK in plain packaging, free to the UK and the EU.</p>
-          </li>
-          <li>
-            <span className="step-number">03</span>
-            <h3>Leave your review</h3>
-            <p>Once you have tried it, tell us what you think. We will email you a reminder.</p>
-          </li>
+        <ol className="steps steps-how sample-steps">
+          {SAMPLE_STEPS.map((step, i) => {
+            const Icon = SAMPLE_STEP_ICONS[i]
+            return (
+              <li data-reveal key={step.title} style={{ transitionDelay: `${i * 140}ms` }}>
+                <span className="step-badge">{Icon && <Icon />}</span>
+                <span aria-hidden className="step-ghost">
+                  0{i + 1}
+                </span>
+                <span className="step-number">0{i + 1}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+                {i === 0 && campaign.socials.length > 0 && (
+                  <p className="sample-socials">
+                    {campaign.socials.map((s) => (
+                      <a href={s.url} key={s.name} rel="noopener noreferrer" target="_blank">
+                        {s.name}
+                      </a>
+                    ))}
+                  </p>
+                )}
+              </li>
+            )
+          })}
         </ol>
       )}
 

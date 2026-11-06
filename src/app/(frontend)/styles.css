@@ -5338,3 +5338,103 @@ html.age-pending::after {
     transition: none;
   }
 }
+
+/* ---------- free sample steps: same look as "How it works", socials as pill buttons ---------- */
+.sample-steps .sample-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px !important;
+}
+
+.sample-steps .sample-socials a {
+  padding: 7px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  color: var(--gold-light);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition:
+    background 0.3s,
+    border-color 0.3s,
+    color 0.3s;
+}
+
+.sample-steps .sample-socials a:hover {
+  border-color: var(--gold);
+  background: rgba(249, 207, 115, 0.1);
+  color: var(--text);
+}
+
+.follow-beat {
+  transform-origin: 24px 26px;
+  animation: follow-beat 2.6s ease-in-out infinite;
+}
+
+@keyframes follow-beat {
+  0%,
+  60%,
+  100% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.12);
+  }
+  80% {
+    transform: scale(0.98);
+  }
+}
+
+.gift-lid {
+  animation: gift-lid 3.4s var(--ease) infinite;
+}
+
+@keyframes gift-lid {
+  0%,
+  70%,
+  100% {
+    transform: translateY(0);
+  }
+  80% {
+    transform: translateY(-3px) rotate(-3deg);
+  }
+  90% {
+    transform: translateY(0);
+  }
+}
+
+.star-glow {
+  transform-origin: 24px 24px;
+  animation: star-glow 4s ease-in-out infinite;
+}
+
+@keyframes star-glow {
+  0%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+  50% {
+    transform: rotate(8deg) scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .follow-beat,
+  .gift-lid,
+  .star-glow {
+    animation: none;
+  }
+}
+
+/* narrower cards than on the home page: a smaller corner number keeps clear of the icon */
+.sample-steps .step-ghost {
+  font-size: 5rem;
+}
+
+@media (max-width: 860px) {
+  /* phones: the steps put the icon in its own column; the buttons stay with the text */
+  .sample-steps .sample-socials {
+    grid-column: 2;
+  }
+}
