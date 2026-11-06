@@ -25,6 +25,10 @@ import { refreshesCollection, refreshesGlobal, SAMPLES_TAG } from './lib/cms'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+// Vercel's Neon integration names it SAY400_STORAGE_DATABASE_URL (pooled connection)
+const databaseUrl = process.env.DATABASE_URL || process.env.SAY400_STORAGE_DATABASE_URL || ''
+const isLocalDatabase = /@(localhost|127\.0\.0\.1|\[::1\])[:/]/.test(databaseUrl)
+
 export default buildConfig({
   serverURL: process.env.SITE_URL || '',
   admin: {
@@ -48,10 +52,10 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
-    pool: {
-      // Vercel's Neon integration names it SAY400_STORAGE_DATABASE_URL (pooled connection)
-      connectionString: process.env.DATABASE_URL || process.env.SAY400_STORAGE_DATABASE_URL || '',
-    },
+    pool: { connectionString: databaseUrl },
+    // dev mode syncs the schema straight into the database; only ever do that on this machine's
+    // database. Neon (production) changes only through migrations (src/migrations).
+    push: isLocalDatabase,
   }),
   sharp,
   jobs: {
