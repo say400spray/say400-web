@@ -26,6 +26,7 @@ import {
   VariantProvider,
 } from './components/Variants'
 import { QuantityBuy } from './components/QuantityBuy'
+import { StickyBuy } from './components/StickyBuy'
 import { PaymentMethods, Stars, TrustBar } from './components/Trust'
 import { VideoSection } from './components/VideoSection'
 
@@ -207,8 +208,10 @@ export default async function HomePage() {
                     {ratingCount === 1 ? '' : 's'}
                   </p>
                 )}
-                <SizePicker />
-                <VariantPicker />
+                <div className="feature-options">
+                  <SizePicker />
+                  <VariantPicker />
+                </div>
                 <VariantPrice base={featured} className="feature-price" currency={currency} />
                 {offer?.kind === 'percent' && (
                   <p className="offer-note">
@@ -218,7 +221,8 @@ export default async function HomePage() {
                     {offer.badge}, applied at checkout
                   </p>
                 )}
-                <QuantityBuy slug={featured.slug} />
+                <QuantityBuy id="buy-form" slug={featured.slug} />
+                <StickyBuy base={featured} currency={currency} formId="buy-form" />
                 <PaymentMethods />
                 <ul className="feature-points">
                   <li>Discreet delivery to the UK & EU</li>

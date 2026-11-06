@@ -13,6 +13,7 @@ import { jsonLd } from '@/lib/seo'
 import { FaqList } from '../../components/FaqList'
 import { ProductImage } from '../../components/ProductImage'
 import { QuantityBuy } from '../../components/QuantityBuy'
+import { StickyBuy } from '../../components/StickyBuy'
 import {
   ProductGallery,
   SizePicker,
@@ -165,8 +166,10 @@ export default async function ProductPage({
                   ))}
                 </ul>
               )}
-              <SizePicker />
-              <VariantPicker />
+              <div className="feature-options">
+                <SizePicker />
+                <VariantPicker />
+              </div>
               <VariantPrice base={product} className="feature-price" currency={currency} />
               {offer?.kind === 'percent' && (
                 <p className="offer-note">
@@ -176,7 +179,8 @@ export default async function ProductPage({
                   {offer.badge}, applied at checkout
                 </p>
               )}
-              <QuantityBuy slug={product.slug} />
+              <QuantityBuy id="buy-form" slug={product.slug} />
+              <StickyBuy base={product} currency={currency} formId="buy-form" />
               <PaymentMethods />
               <ul className="feature-points">
                 <li>Discreet delivery to the UK & EU</li>

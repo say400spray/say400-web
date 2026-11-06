@@ -7,14 +7,14 @@ import { useVariant } from './Variants'
 const MAX_QUANTITY = 10
 
 /** Quantity stepper + buy button; submits to /checkout as a plain GET form. */
-export function QuantityBuy({ slug }: { slug: string }) {
+export function QuantityBuy({ slug, id }: { slug: string; id?: string }) {
   const [qty, setQty] = useState(1)
   const state = useVariant()
   const variant = state?.active
   const size = state?.size
 
   return (
-    <form action="/checkout" className="buy" method="get">
+    <form action="/checkout" className="buy" id={id} method="get">
       <input name="product" type="hidden" value={slug} />
       {variant && <input name="variant" type="hidden" value={variant.id} />}
       {size && <input name="size" type="hidden" value={size.id} />}
