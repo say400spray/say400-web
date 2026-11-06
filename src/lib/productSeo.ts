@@ -4,16 +4,19 @@ import { priceFor } from './pricing'
 import { absoluteUrl, SITE_NAME } from './seo'
 import { activeVariants, mediaPath, sizeOptions, variantOptions } from './variants'
 
+// site paths get this site's address; Blob URLs are already absolute
+const toAbsolute = (url: string) => (/^https?:\/\//.test(url) ? url : absoluteUrl(url))
+
 /** Absolute image URLs for a product: its own photos, else the front of each box. */
 export function productImages(product: Product): string[] {
   const own = (product.images ?? [])
     .filter((m): m is Media => typeof m === 'object' && Boolean(m?.url))
-    .map((m) => absoluteUrl(mediaPath(m.url!)))
+    .map((m) => toAbsolute(mediaPath(m.url!)))
   if (own.length) return own
   return variantOptions(product)
     .map((v) => v.front?.url)
     .filter((url): url is string => Boolean(url))
-    .map((url) => absoluteUrl(url))
+    .map(toAbsolute)
 }
 
 /** Every price a customer can pay for the product in one currency (sizes, else variants). */

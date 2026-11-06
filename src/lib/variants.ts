@@ -18,8 +18,11 @@ export type VariantOption = {
   back: Picture | null
 }
 
-/** Upload URLs carry SITE_URL's host; a path works on localhost and on the shared preview alike. */
-export const mediaPath = (url: string) => url.replace(/^https?:\/\/[^/]+/, '')
+/**
+ * Files served by this site (/api/...) carry SITE_URL's host; a path works on localhost and on the
+ * shared preview alike. Files on Vercel Blob keep their full CDN address.
+ */
+export const mediaPath = (url: string) => url.replace(/^https?:\/\/[^/]+(?=\/api\/)/, '')
 
 const picture = (media: number | Media | null | undefined): Picture | null =>
   media && typeof media === 'object' && media.url

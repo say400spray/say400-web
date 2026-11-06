@@ -33,6 +33,10 @@ const sans = Jost({
   variable: '--font-sans',
 })
 
+// every page shows the logged-in customer and shop settings, so nothing is pre-rendered at build
+// time (the build has no database or PAYLOAD_SECRET, e.g. on Vercel)
+export const dynamic = 'force-dynamic'
+
 /** Footer "Help" column: these pages, under shorter names. */
 const HELP_LABELS: Record<string, string> = {
   shipping: 'Shipping & delivery',

@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -51,5 +52,21 @@ export default buildConfig({
     autoRun: [{ cron: '0 * * * * *', queue: 'maintenance' }],
     shouldAutoRun: () => process.env.DISABLE_JOBS !== 'true',
   },
-  plugins: [],
+  plugins: [
+    // images and videos go to Vercel Blob when BLOB_READ_WRITE_TOKEN is set (production);
+    // without it (local development) they stay in /media and /videos on disk
+    vercelBlobStorage({
+      enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+      // same database columns with or without the token
+      alwaysInsertFields: true,
+      collections: {
+        // public files: served straight from the Blob CDN instead of through the server
+        media: { prefix: 'media', disablePayloadAccessControl: true },
+        videos: { prefix: 'videos', disablePayloadAccessControl: true },
+      },
+      // the browser uploads straight to Blob, so videos can be bigger than Vercel's 4.5 MB request limit
+      clientUploads: { access: ({ req }) => req.user?.collection === 'users' },
+    }),
+  ],
 })
