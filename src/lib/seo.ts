@@ -4,9 +4,9 @@ import { previewPassword } from './previewAccess'
 import { siteUrl } from './site'
 
 export const SITE_NAME = 'Say400'
-export const DEFAULT_TITLE = 'Say400 Men Spray | Discreet Delay Spray, UK & EU Delivery'
+export const DEFAULT_TITLE = 'Say400 Delay Spray for Men | Last Longer in Bed, UK & EU'
 export const DEFAULT_DESCRIPTION =
-  'Say400 Men Spray: a discreet, pocket-size intimate delay spray for men in five strengths. Plain packaging, tracked delivery from the UK to the UK and the EU. Adults 18+.'
+  'Say400 delay spray for men helps you last longer in bed. Botanical formula, 2–3 sprays, works in 2–5 minutes. Five strengths, plain packaging, UK & EU delivery. 18+.'
 
 /** Search engines may index the site only once it is public (no preview password). */
 export const indexable = () => !previewPassword()

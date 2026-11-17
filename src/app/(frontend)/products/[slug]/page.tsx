@@ -47,7 +47,8 @@ export async function generateMetadata({
     `${product.name}: discreet delivery from the UK to the UK and the EU. Adults 18+.`
   const images = productImages(product).slice(0, 4)
   return {
-    title: `${product.name} | Discreet Delay Spray`,
+    // absolute: the brand is already at the front, so no " | Say400" from the layout template
+    title: { absolute: `Say400 ${product.name} | Delay Spray for Men, Last Longer` },
     description,
     // ?variant= only picks a box on the same page
     alternates: { canonical: `/products/${product.slug}` },

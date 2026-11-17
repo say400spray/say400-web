@@ -2,7 +2,70 @@
  * Starting FAQ and product details. Everything in [BRACKETS] must be replaced
  * with real information from the client (in the admin) before launch.
  */
+/** Questions about the product itself; they come first in the FAQ. */
+export const productFaqItems = [
+  {
+    question: 'What is a delay spray?',
+    answer:
+      'A delay spray (also called a prolonger) is a spray for men that helps delay ejaculation so you can last longer in bed. The name comes from the Latin "prolongare", to lengthen. It gently reduces the sensitivity of the head of the penis for a while, so you keep control for longer.',
+  },
+  {
+    question: 'How does Say400 work?',
+    answer:
+      'Many delay sprays use a local anaesthetic such as lidocaine or benzocaine. Say400 uses a botanical formula built around acmella, a plant known for its natural, mild numbing effect, with damiana, ginkgo biloba, ginseng and taurine. It slightly slows the nerve signals from the most sensitive area, so you stay in control without losing feeling.',
+  },
+  {
+    question: 'How do I use it and how quickly does it work?',
+    answer:
+      'Apply 2–3 sprays to the head and lower shaft of the penis. Wait 2–5 minutes for the spray to absorb and take effect. Start with fewer sprays and add one more next time if you need it.',
+  },
+  {
+    question: 'Will my partner feel the numbing effect?',
+    answer:
+      'Let the spray absorb fully for a few minutes before intimacy and do not use more than you need. This keeps the effect on you rather than your partner.',
+  },
+  {
+    question: 'Can I use it with condoms?',
+    answer:
+      'Not every delay spray is suitable with latex. Always check the leaflet in the box before using Say400 with condoms or other latex products.',
+  },
+  {
+    question: 'Does it help with premature ejaculation?',
+    answer:
+      'A delay spray helps you control when you climax and can make sex last longer, which is why many men with premature ejaculation use one. It does not treat the cause, such as stress or physical factors. If early ejaculation worries you, talk to a doctor.',
+  },
+  {
+    question: 'Which strength should I choose?',
+    answer:
+      'If it is your first delay spray, start with Gentle or Standard. Move up to a stronger box only if you want a more noticeable effect. Each box has its own colour, so you always know which one is yours.',
+  },
+  {
+    question: 'Is it safe to use?',
+    answer:
+      'Before the first use, do a patch test: apply a little to the inside of your elbow or thigh and wait a couple of hours. If there is no redness or itching, you can use it. Always read the leaflet. Our products are for adults 18+ only. If you have a medical condition, take medication or have allergies, ask a doctor or pharmacist first. Stop using it if you notice any irritation.',
+  },
+]
+
+/** Product page texts for the Say400 Men Spray, in English, from the client's product information. */
+export const sprayCopy = {
+  shortDescription:
+    'A discreet delay spray for men with a botanical formula. 2–3 sprays, works in 2–5 minutes, so you last longer and stay in control.',
+  description:
+    'Say400 Men Spray is a delay spray that helps you last longer in bed. Its botanical formula with acmella gently reduces sensitivity for a while, so you keep control without losing feeling.\nUse it whenever you want more time: after a long time apart, when you are very aroused, or simply to make the moment last for both of you. Five strengths, one slim pocket-size bottle, delivered in plain packaging.',
+  highlights: [
+    'Botanical formula with acmella, damiana, ginkgo and ginseng',
+    'Works in 2–5 minutes, 2–3 sprays are usually enough',
+    'Five strengths, from Gentle to Maximum',
+    'Slim, pocket-size bottle',
+  ],
+  howToUse:
+    'Apply 2–3 sprays to the head and lower shaft of the penis (up to 5 for a stronger effect).\nWait 2–5 minutes for the spray to absorb and take effect before intimacy.\nBefore the first use, patch-test a small amount on the inside of your elbow or thigh and wait a couple of hours to check for redness or itching.',
+  warnings:
+    'For external use only. For adults 18+ only. Keep out of reach of children. Do not use if you are allergic to any of the ingredients. Stop use if irritation or an allergic reaction occurs.\nCheck the leaflet before using with condoms or other latex products.\nA delay spray helps you control the moment; it does not treat the causes of premature ejaculation.',
+}
+
 export const faqItems = [
+  ...productFaqItems,
   {
     question: 'How will my order be packaged?',
     answer:
@@ -25,11 +88,6 @@ export const faqItems = [
     question: 'Will I pay customs or VAT on EU orders?',
     answer:
       'Because we ship from the UK, EU orders pass through customs. Full details are in our Shipping Policy. [Update this answer once the IOSS decision is made.]',
-  },
-  {
-    question: 'Is it safe to use?',
-    answer:
-      'Always read the leaflet before use. Our products are for adults only. If you have a medical condition, take medication or have allergies, ask a doctor or pharmacist first. Stop using the product if you notice any irritation.',
   },
   {
     question: 'Can I return my order?',
@@ -111,8 +169,6 @@ export const sprayBoxes = [
 export const sprayBoxDetails = {
   size: '6 ml',
   ingredients: 'Acmella, Taurine, Damiana, Ginkgo Biloba, Ginseng',
-  howToUse:
-    'Spray a small amount (usually 2 to 5 pumps) directly onto the head and lower shaft of the penis.\nAlways patch-test a small amount first to check for allergic reactions or unwanted over-numbing.',
-  warnings:
-    'For external use only. Keep out of reach of children. Not for use by persons under 18 years of age. Discontinue use if irritation or an allergic reaction occurs.',
+  howToUse: sprayCopy.howToUse,
+  warnings: sprayCopy.warnings,
 }

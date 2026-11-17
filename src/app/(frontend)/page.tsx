@@ -35,15 +35,43 @@ export const dynamic = 'force-dynamic'
 export const metadata = { alternates: { canonical: '/' } }
 
 const benefits = [
-  { title: 'Natural formula', text: 'Acmella, damiana, ginkgo and ginseng.' },
-  { title: 'Pocket-size', text: 'A slim bottle that goes anywhere.' },
-  { title: 'Simple to use', text: 'A few sprays, a few minutes. That’s it.' },
+  { title: 'Botanical formula', text: 'Acmella, damiana, ginkgo and ginseng.' },
+  { title: 'Pocket-size', text: 'A slim, discreet bottle that goes anywhere.' },
+  { title: 'Works in minutes', text: '2–3 sprays, ready in 2–5 minutes.' },
 ]
 
 const steps = [
-  { title: 'Spray', text: 'Apply a few sprays where needed.' },
-  { title: 'Wait', text: 'Give it a few minutes to absorb.' },
-  { title: 'Enjoy', text: 'Stay in the moment, with confidence.' },
+  { title: 'Spray', text: '2–3 sprays on the head and lower shaft.' },
+  { title: 'Wait', text: '2–5 minutes to absorb and take effect.' },
+  { title: 'Enjoy', text: 'Last longer and stay in control.' },
+]
+
+/** Who a delay spray is for, from the client's product information. */
+const forWhom = [
+  'Men who want to last longer in bed',
+  'Men who finish sooner than they would like',
+  'After a long time apart, or when you are very aroused',
+  'Anyone who wants the moment to last for both of you',
+]
+
+/** The practical points to know before using it. */
+const goodToKnow = [
+  {
+    title: 'Patch-test first',
+    text: 'Before the first use, put a little on the inside of your elbow or thigh and wait a couple of hours. No redness or itching? You are good to go.',
+  },
+  {
+    title: 'Give it a few minutes',
+    text: 'Let the spray absorb for 2–5 minutes before intimacy. That is when it starts to work, and it keeps the effect on you.',
+  },
+  {
+    title: 'Condoms',
+    text: 'Not every delay spray suits latex. Check the leaflet in the box before using it with condoms.',
+  },
+  {
+    title: 'Control, not a cure',
+    text: 'A delay spray helps you control the moment. It does not treat the causes of premature ejaculation, such as stress.',
+  },
 ]
 
 export default async function HomePage() {
@@ -143,15 +171,16 @@ export default async function HomePage() {
         </svg>
         <div className="container hero-inner">
           <div className="hero-copy">
-            <p className="eyebrow hero-eyebrow">Say400 · Natural men’s spray</p>
+            <p className="eyebrow hero-eyebrow">Say400 · Delay spray for men</p>
             <h1 className="hero-title">
-              Stay in control.
+              Last longer.
               <br />
-              <em className="gold-text">Naturally.</em>
+              <em className="gold-text">Stay in control.</em>
             </h1>
             <p className="hero-lead">
-              Say400 Men Spray is a discreet, natural spray for men who want to feel confident and
-              stay in the moment. Delivered in plain packaging across the UK & EU.
+              Say400 Men Spray is a discreet delay spray with a botanical formula. 2–3 sprays, a
+              few minutes, and you stay in the moment for longer. Delivered in plain packaging
+              across the UK & EU.
             </p>
             <div className="hero-actions">
               <Link className="btn btn-gold" href="#product">
@@ -347,6 +376,53 @@ export default async function HomePage() {
         </section>
       )}
 
+      <section className="section explainer" id="what-is-a-delay-spray">
+        <div className="container explainer-inner">
+          <div className="explainer-copy" data-reveal>
+            <p className="eyebrow">The science, simply</p>
+            <h2 className="explainer-title">
+              What is a <em className="gold-text">delay spray?</em>
+            </h2>
+            <p>
+              A delay spray, also called a prolonger, helps a man delay ejaculation so sex can last
+              longer. The word comes from the Latin <em>prolongare</em>, to lengthen.
+            </p>
+            <p>
+              It works by gently reducing the sensitivity of the head of the penis for a while. Not
+              completely, just enough to slow the nerve signals that trigger climax, so you keep
+              control for longer.
+            </p>
+            <p>
+              Many delay sprays use a local anaesthetic such as lidocaine or benzocaine. Say400 is
+              built on a botanical formula: acmella, a plant known for its natural, mild numbing
+              effect, with damiana, ginkgo biloba, ginseng and taurine.
+            </p>
+          </div>
+          <div className="explainer-card" data-reveal data-spotlight>
+            <p className="explainer-card-title">Made for</p>
+            <ul className="explainer-list">
+              {forWhom.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <dl className="explainer-facts">
+              <div>
+                <dt>2–3</dt>
+                <dd>sprays</dd>
+              </div>
+              <div>
+                <dt>2–5</dt>
+                <dd>minutes to work</dd>
+              </div>
+              <div>
+                <dt>5</dt>
+                <dd>strengths</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
       <section className="container section">
         <div className="benefits">
           {benefits.map((b, i) => {
@@ -394,6 +470,25 @@ export default async function HomePage() {
               )
             })}
           </ol>
+
+          <div className="good-to-know" id="good-to-know">
+            <p className="eyebrow center" data-reveal>
+              Good to know
+            </p>
+            <ul className="notes">
+              {goodToKnow.map((note, i) => (
+                <li
+                  className="note"
+                  data-reveal
+                  key={note.title}
+                  style={{ transitionDelay: `${i * 100}ms` }}
+                >
+                  <h3>{note.title}</h3>
+                  <p>{note.text}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 

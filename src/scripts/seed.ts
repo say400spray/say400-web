@@ -14,15 +14,16 @@ import {
   faqItems,
   sprayBoxDetails,
   sprayBoxes,
+  sprayCopy,
   tibetSprayDetails,
 } from './shop-content'
 
 const demoProducts = [
   {
     name: 'Men Spray',
-    shortDescription: 'A discreet, natural men’s spray in five strengths.',
-    description:
-      'Say400 Men Spray comes in a discreet pocket-size bottle.\nPlaceholder text: replace with the official product description, ingredients and directions for use.',
+    shortDescription: sprayCopy.shortDescription,
+    description: sprayCopy.description,
+    highlights: sprayCopy.highlights.map((text) => ({ text })),
     price: 39.99,
     priceEUR: 45.99,
   },
