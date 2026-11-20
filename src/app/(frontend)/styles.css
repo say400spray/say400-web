@@ -5844,3 +5844,28 @@ html.age-pending::after {
     display: block;
   }
 }
+
+/* ---------- hero tagline: three short words, gold dots between ---------- */
+.hero-tagline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+}
+
+.hero-tagline span + span::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  vertical-align: middle;
+}
+
+@media (max-width: 860px) {
+  .hero-tagline {
+    justify-content: center;
+  }
+}

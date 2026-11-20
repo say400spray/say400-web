@@ -199,31 +199,29 @@ export default async function HomePage() {
         </svg>
         <div className="container hero-inner">
           <div className="hero-copy">
-            <p className="eyebrow hero-eyebrow">Say400 · Delay spray for men</p>
+            {/* the client's own words; the rest of the page explains the product */}
+            <p className="eyebrow hero-eyebrow">The Say400 Prolongation</p>
             <h1 className="hero-title">
-              Last longer.
+              Long time.
               <br />
-              <em className="gold-text">Stay in control.</em>
+              <em className="gold-text">Long live.</em>
             </h1>
-            <p className="hero-lead">
-              Say400 Men Spray is a discreet delay spray with a botanical formula. 2–3 sprays, a few
-              minutes, and you stay in the moment for longer. Delivered in plain packaging across
-              the UK & EU.
+            <p className="hero-lead hero-tagline">
+              <span>Natural</span>
+              <span>Special for you</span>
+              <span>Only for love</span>
             </p>
             <div className="hero-actions">
               <Link className="btn btn-gold" href="#product">
                 Shop now
                 {fromPrice != null && ` · from ${formatMoney(fromPrice, currency ?? 'GBP')}`}
               </Link>
-              <Link className="btn btn-ghost" href="#faq">
-                Questions?
-              </Link>
             </div>
-            <ul className="hero-checks">
-              {freeDelivery ? <li>Free UK &amp; EU delivery</li> : <li>Secure checkout</li>}
-              <li>Plain, unbranded box</li>
-              <li>14-day returns</li>
-            </ul>
+            {freeDelivery && (
+              <ul className="hero-checks">
+                <li>Free delivery to the UK &amp; Europe</li>
+              </ul>
+            )}
           </div>
           {featured && (
             <div className="hero-visual" aria-hidden>
