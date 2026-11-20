@@ -47,10 +47,16 @@ const trustItems = [
 ]
 
 /** Row of reassurance points shown right under the hero. */
-export function TrustBar() {
+export function TrustBar({ freeDelivery = false }: { freeDelivery?: boolean }) {
+  // while delivery costs nothing, the delivery point says so
+  const items = trustItems.map((item) =>
+    item.key === 'truck' && freeDelivery
+      ? { ...item, title: 'Free delivery', text: 'Tracked, UK & Europe' }
+      : item,
+  )
   return (
     <div className="trust-bar">
-      {trustItems.map((item, i) => (
+      {items.map((item, i) => (
         <div
           className={`trust-item trust-${item.key}`}
           data-reveal
@@ -75,6 +81,24 @@ export function TrustBar() {
 const paymentMethods = ['Visa', 'Mastercard', 'Amex', 'PayPal', 'Apple Pay', 'Google Pay']
 
 /** Accepted payment methods as one quiet line under the buy button. */
+/** Under the price: delivery is already paid for. Shown only while delivery costs nothing. */
+export function DeliveryNote() {
+  return (
+    <p className="delivery-note">
+      <svg aria-hidden viewBox="0 0 24 24">
+        <path d="M3 6h11v9H3zM14 9h4l3 3v3h-7" />
+        <circle cx="7" cy="17" r="1.5" />
+        <circle cx="17" cy="17" r="1.5" />
+      </svg>
+      <span>
+        <strong>Free delivery</strong> to the UK &amp; Europe
+        <span className="delivery-note-comma">,</span>{' '}
+        <span className="delivery-note-more">included in the price</span>
+      </span>
+    </p>
+  )
+}
+
 export function PaymentMethods({ className }: { className?: string }) {
   return (
     <div className={`payment-methods ${className ?? ''}`}>

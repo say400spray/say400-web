@@ -6,7 +6,7 @@ import { siteUrl } from './site'
 export const SITE_NAME = 'Say400'
 export const DEFAULT_TITLE = 'Say400 Delay Spray for Men | Last Longer in Bed, UK & EU'
 export const DEFAULT_DESCRIPTION =
-  'Say400 delay spray for men helps you last longer in bed. Botanical formula, 2–3 sprays, works in 2–5 minutes. Five strengths, plain packaging, UK & EU delivery. 18+.'
+  'Say400 delay spray for men helps you last longer in bed. Botanical formula, 2–3 sprays, works in 2–5 minutes. Five strengths, plain packaging, free UK & EU delivery. 18+.'
 
 /** Search engines may index the site only once it is public (no preview password). */
 export const indexable = () => !previewPassword()

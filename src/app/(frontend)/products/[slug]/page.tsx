@@ -8,6 +8,7 @@ import { ratingSummary, visibleReviewsWhere } from '@/lib/reviews'
 import { sizeOptions, variantOptions } from '@/lib/variants'
 import { getCurrentCustomer, getPayloadClient } from '@/lib/payload'
 import { cached } from '@/lib/cms'
+import { hasFreeDelivery } from '@/lib/delivery'
 import { breadcrumbJsonLd, productImages, productJsonLd } from '@/lib/productSeo'
 import { jsonLd } from '@/lib/seo'
 import { FaqList } from '../../components/FaqList'
@@ -21,7 +22,7 @@ import {
   VariantPrice,
   VariantProvider,
 } from '../../components/Variants'
-import { PaymentMethods, Stars } from '../../components/Trust'
+import { DeliveryNote, PaymentMethods, Stars } from '../../components/Trust'
 
 export const dynamic = 'force-dynamic'
 
@@ -98,7 +99,10 @@ export default async function ProductPage({
       }),
     ),
   ])
-  const offer = await offerFor(payload, customer)
+  const [offer, freeDelivery] = await Promise.all([
+    offerFor(payload, customer),
+    hasFreeDelivery(payload),
+  ])
   const currency = customer?.shipping?.country ? currencyFor(customer.shipping.country) : undefined
   const { average: avgRating, count: ratingCount } = ratingSummary(reviews)
 
@@ -172,6 +176,7 @@ export default async function ProductPage({
                 <VariantPicker />
               </div>
               <VariantPrice base={product} className="feature-price" currency={currency} />
+              {freeDelivery && <DeliveryNote />}
               {offer?.kind === 'percent' && (
                 <p className="offer-note">
                   <span aria-hidden className="offer-note-badge">

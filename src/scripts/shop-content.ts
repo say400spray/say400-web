@@ -78,7 +78,7 @@ export const faqItems = [
   {
     question: 'How long does delivery take?',
     answer:
-      'We ship from the UK. Delivery usually takes [1–3] working days in the UK and [3–8] working days to EU countries. You receive a tracking number by email as soon as your order ships.',
+      'Delivery is free to the UK and Europe, already included in the price. We ship from the UK. Delivery usually takes [1–3] working days in the UK and [3–8] working days to EU countries. You receive a tracking number by email as soon as your order ships.',
   },
   {
     question: 'Do you deliver to my country?',
@@ -120,7 +120,7 @@ export const tibetSprayDetails = {
 }
 
 export const defaultAnnouncement =
-  'Discreet, unbranded packaging · Ships from the UK to the UK & EU'
+  'Free delivery to the UK & Europe · Discreet, unbranded packaging'
 
 /**
  * The five Say400 boxes. They differ only in colour and strength: the strength (mg) of each

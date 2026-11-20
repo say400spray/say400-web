@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { cached } from '@/lib/cms'
+import { hasFreeDelivery } from '@/lib/delivery'
 import { currencyFor } from '@/lib/countries'
 import { formatMoney } from '@/lib/orderStatus'
 import { getCurrentCustomer, getPayloadClient } from '@/lib/payload'
@@ -28,7 +29,7 @@ import {
 } from './components/Variants'
 import { QuantityBuy } from './components/QuantityBuy'
 import { StickyBuy } from './components/StickyBuy'
-import { PaymentMethods, Stars, TrustBar } from './components/Trust'
+import { DeliveryNote, PaymentMethods, Stars, TrustBar } from './components/Trust'
 import { VideoSection } from './components/VideoSection'
 
 export const dynamic = 'force-dynamic'
@@ -140,9 +141,10 @@ export default async function HomePage() {
   // the main product's boxes, one card per colour / strength
   const collection = featured ? variantOptions(featured) : []
   const videos = videoDocs.map(toVideoItem)
-  const [offer, samples] = await Promise.all([
+  const [offer, samples, freeDelivery] = await Promise.all([
     offerFor(payload, customer),
     getSampleCampaign(payload),
+    hasFreeDelivery(payload),
   ])
   const currency = customer?.shipping?.country ? currencyFor(customer.shipping.country) : undefined
 
@@ -218,8 +220,8 @@ export default async function HomePage() {
               </Link>
             </div>
             <ul className="hero-checks">
+              {freeDelivery ? <li>Free UK &amp; EU delivery</li> : <li>Secure checkout</li>}
               <li>Plain, unbranded box</li>
-              <li>Secure checkout</li>
               <li>14-day returns</li>
             </ul>
           </div>
@@ -233,7 +235,7 @@ export default async function HomePage() {
       </section>
 
       <section className="container trust-section">
-        <TrustBar />
+        <TrustBar freeDelivery={freeDelivery} />
       </section>
 
       {featured && (
@@ -268,6 +270,7 @@ export default async function HomePage() {
                   <VariantPicker />
                 </div>
                 <VariantPrice base={featured} className="feature-price" currency={currency} />
+                {freeDelivery && <DeliveryNote />}
                 {offer?.kind === 'percent' && (
                   <p className="offer-note">
                     <span aria-hidden className="offer-note-badge">
