@@ -226,7 +226,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               </nav>
             </div>
             <p className="footer-small">
-              For adults 18+ only. © {new Date().getFullYear()} {company.legalName || 'Say400'}
+              For adults 18+ only. © {company.legalName || 'Say400'}
               {company.companyNumber && ` · Company no. ${company.companyNumber}`}
               {company.vatNumber && ` · VAT ${company.vatNumber}`}
             </p>

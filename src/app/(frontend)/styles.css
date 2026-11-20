@@ -5621,3 +5621,46 @@ html.age-pending::after {
     border-top: 1px solid var(--border);
   }
 }
+
+/* ---------- password field with a show / hide button ---------- */
+.password-field {
+  position: relative;
+  display: block;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 52px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: color 0.2s;
+}
+
+.password-toggle:hover,
+.password-toggle[aria-pressed='true'] {
+  color: var(--gold-light);
+}
+
+.password-toggle:focus-visible {
+  outline: 1px solid var(--gold);
+}
+
+.password-toggle svg {
+  width: 20px;
+  height: 20px;
+}

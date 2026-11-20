@@ -5,6 +5,7 @@ import { getCurrentCustomer } from '@/lib/payload'
 import { safePath } from '@/lib/site'
 import { loginAction } from '../actions'
 import { ActionForm } from '../components/Forms'
+import { PasswordInput } from '../components/PasswordInput'
 import { privatePage } from '@/lib/seo'
 
 export const metadata = privatePage('Log in')
@@ -28,7 +29,7 @@ export default async function LoginPage({
         </label>
         <label>
           Password
-          <input autoComplete="current-password" name="password" required type="password" />
+          <PasswordInput autoComplete="current-password" name="password" required />
         </label>
       </ActionForm>
       <p className="muted">

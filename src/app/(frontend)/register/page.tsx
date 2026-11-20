@@ -6,6 +6,7 @@ import { getCurrentCustomer, getPayloadClient } from '@/lib/payload'
 import { safePath } from '@/lib/site'
 import { registerAction } from '../actions'
 import { ActionForm } from '../components/Forms'
+import { PasswordInput } from '../components/PasswordInput'
 import { PrefillEmail } from '../components/PrefillEmail'
 import { privatePage } from '@/lib/seo'
 
@@ -51,13 +52,7 @@ export default async function RegisterPage({
         </label>
         <label>
           Password
-          <input
-            autoComplete="new-password"
-            minLength={8}
-            name="password"
-            required
-            type="password"
-          />
+          <PasswordInput autoComplete="new-password" minLength={8} name="password" required />
         </label>
         <label className="checkbox">
           <input name="adult" required type="checkbox" />
