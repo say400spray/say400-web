@@ -13,6 +13,7 @@ import { ratingSummary, visibleReviewsWhere } from '@/lib/reviews'
 import { toVideoItem } from '@/lib/videos'
 import { AnimatedTitle } from './components/AnimatedTitle'
 import { Bottle } from './components/Bottle'
+import { Carousel } from './components/Carousel'
 import { FaqList } from './components/FaqList'
 import { BENEFIT_ICONS, STEP_ICONS } from './components/StepIcons'
 import { Price } from './components/Price'
@@ -52,6 +53,31 @@ const forWhom = [
   'Men who finish sooner than they would like',
   'After a long time apart, or when you are very aroused',
   'Anyone who wants the moment to last for both of you',
+]
+
+/**
+ * What medical sources say about delay sprays and creams as a method. They are about the
+ * category (mostly lidocaine-based products), never about Say400: the note under the cards says so.
+ */
+const medicalSources = [
+  {
+    source: 'NHS',
+    detail: 'UK National Health Service',
+    text: 'Lists anaesthetic creams and sprays among the ways to manage premature ejaculation: they make the penis less sensitive, and work especially well with a condom.',
+    href: 'https://www.nhs.uk/common-health-questions/sexual-health/can-premature-ejaculation-be-controlled/',
+  },
+  {
+    source: 'European Medicines Agency',
+    detail: 'EU medicines regulator',
+    text: 'Approved a lidocaine/prilocaine delay spray for premature ejaculation in adult men, concluding that its benefits outweigh its risks.',
+    href: 'https://www.ema.europa.eu/en/documents/assessment-report/lidocaine/prilocaine-plethora-epar-public-assessment-report_en.pdf',
+  },
+  {
+    source: 'Systematic review, 2023',
+    detail: 'Meta-analysis of clinical trials',
+    text: 'Across the trials reviewed, topical anaesthetics lengthened the time to ejaculation more than placebo and several oral medicines.',
+    href: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10474909/',
+  },
 ]
 
 /** The practical points to know before using it. */
@@ -178,9 +204,9 @@ export default async function HomePage() {
               <em className="gold-text">Stay in control.</em>
             </h1>
             <p className="hero-lead">
-              Say400 Men Spray is a discreet delay spray with a botanical formula. 2–3 sprays, a
-              few minutes, and you stay in the moment for longer. Delivered in plain packaging
-              across the UK & EU.
+              Say400 Men Spray is a discreet delay spray with a botanical formula. 2–3 sprays, a few
+              minutes, and you stay in the moment for longer. Delivered in plain packaging across
+              the UK & EU.
             </p>
             <div className="hero-actions">
               <Link className="btn btn-gold" href="#product">
@@ -555,6 +581,47 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      <section className="section medical" id="what-doctors-say">
+        <div className="container">
+          <p className="eyebrow center" data-reveal>
+            Delay sprays &amp; medicine
+          </p>
+          <AnimatedTitle gold="say" text="What the experts" />
+          <p className="collection-lead" data-reveal>
+            Delay sprays and creams are a recognised way to last longer. Here is what health
+            authorities and research say about them.
+          </p>
+          <div data-reveal>
+            <Carousel label="What medical sources say about delay sprays">
+              {medicalSources.map((item) => (
+                <a
+                  className="medical-card"
+                  data-spotlight
+                  href={item.href}
+                  key={item.source}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <span aria-hidden className="medical-mark">
+                    “
+                  </span>
+                  <p className="medical-text">{item.text}</p>
+                  <span className="medical-source">
+                    <strong>{item.source}</strong>
+                    {item.detail}
+                  </span>
+                  <span className="medical-link">Read the source ↗</span>
+                </a>
+              ))}
+            </Carousel>
+          </div>
+          <p className="medical-note" data-reveal>
+            These sources are about delay sprays and creams in general, most of them
+            lidocaine-based. They have not reviewed Say400, which uses a botanical formula.
+          </p>
+        </div>
+      </section>
 
       {samples && samples.remaining > 0 && (
         <section className="section sample-cta">

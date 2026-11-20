@@ -5664,3 +5664,131 @@ html.age-pending::after {
   width: 20px;
   height: 20px;
 }
+
+/* ---------- carousel: cards scroll sideways, swipe on phones ---------- */
+.carousel {
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding: 6px 2px 18px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-track > * {
+  flex: 0 0 min(460px, 86%);
+  scroll-snap-align: start;
+}
+
+.carousel-nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.carousel-btn {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0 0 3px;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--gold-light);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    opacity 0.3s,
+    border-color 0.3s,
+    background 0.3s;
+}
+
+.carousel-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  background: var(--surface-2);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ---------- what doctors say ---------- */
+.medical-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 34px 32px 30px;
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  background: radial-gradient(ellipse at 50% 0%, #2a2416, var(--surface) 70%);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    transform 0.5s var(--ease),
+    box-shadow 0.5s var(--ease);
+}
+
+.medical-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -36px rgba(249, 207, 115, 0.35);
+}
+
+.medical-mark {
+  height: 34px;
+  color: var(--gold);
+  font-family: var(--font-serif-stack);
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.medical-text {
+  flex: 1;
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: 1.6;
+}
+
+.medical-source {
+  display: grid;
+  gap: 2px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.medical-source strong {
+  color: var(--gold-light);
+  font-family: var(--font-serif-stack);
+  font-size: var(--title-sm);
+  font-weight: 400;
+}
+
+.medical-link {
+  color: var(--gold);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
+.medical-note {
+  max-width: 640px;
+  margin: 26px auto 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  text-align: center;
+}
