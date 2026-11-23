@@ -5876,8 +5876,8 @@ html.age-pending::after {
 .variant-photo.is-shot {
   object-fit: contain;
   /* the fade reaches nothing at every edge, so no edge of the photo ever shows */
-  -webkit-mask-image: radial-gradient(ellipse closest-side at 50% 50%, #000 62%, transparent 100%);
-  mask-image: radial-gradient(ellipse closest-side at 50% 50%, #000 62%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse closest-side at 50% 50%, #000 72%, transparent 100%);
+  mask-image: radial-gradient(ellipse closest-side at 50% 50%, #000 72%, transparent 100%);
   /* the drop shadow is for the cut-out bottle; around a photo it would outline the rectangle */
   filter: none;
 }
