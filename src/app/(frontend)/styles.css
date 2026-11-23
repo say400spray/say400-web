@@ -5884,25 +5884,25 @@ html.age-pending::after {
 }
 
 .hero-product.product-shot {
-  height: min(560px, 64vh);
+  height: min(440px, 52vh);
 }
 
 .feature-image.product-shot,
 .feature-image.variant-photo.is-shot {
-  height: 480px;
+  height: 400px;
 }
 
 .product-card-image.product-shot {
-  height: 250px;
+  height: 220px;
 }
 
 @media (max-width: 860px) {
   .hero-product.product-shot {
-    height: 380px;
+    height: 300px;
   }
 
   .feature-image.product-shot,
   .feature-image.variant-photo.is-shot {
-    height: 380px;
+    height: 320px;
   }
 }
