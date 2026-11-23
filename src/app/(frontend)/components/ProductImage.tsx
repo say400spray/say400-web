@@ -7,7 +7,13 @@ export function ProductImage({ product, className }: { product: Product; classNa
   const image = product.images?.find((img) => typeof img === 'object')
   if (image && typeof image === 'object' && image.url) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img alt={image.alt} className={className} src={mediaPath(image.url)} />
+    return (
+      <img
+        alt={image.alt}
+        className={`${className ?? ''} product-shot`}
+        src={mediaPath(image.url)}
+      />
+    )
   }
   return <Bottle className={className} label={product.name} />
 }

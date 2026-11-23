@@ -14,6 +14,8 @@ export type VariantOption = {
   color: string
   price?: number | null
   priceEUR?: number | null
+  /** bottle and box together, shown first */
+  photo: Picture | null
   front: Picture | null
   back: Picture | null
 }
@@ -58,6 +60,7 @@ export const toVariantOption = (variant: ProductVariant & { id: string }): Varia
   color: variant.color,
   price: variant.price,
   priceEUR: variant.priceEUR,
+  photo: picture(variant.photo),
   front: picture(variant.front),
   back: picture(variant.back),
 })

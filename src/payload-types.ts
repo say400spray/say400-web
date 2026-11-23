@@ -315,6 +315,10 @@ export interface Product {
         front?: (number | null) | Media;
         back?: (number | null) | Media;
         /**
+         * Shown first in the product gallery and on the colour card. Best on a dark background, portrait (4:5).
+         */
+        photo?: (number | null) | Media;
+        /**
          * Short name shown on the collection card
          */
         level?: string | null;
@@ -922,6 +926,7 @@ export interface ProductsSelect<T extends boolean = true> {
         priceEUR?: T;
         front?: T;
         back?: T;
+        photo?: T;
         level?: T;
         description?: T;
         active?: T;

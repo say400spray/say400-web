@@ -64,7 +64,8 @@ export function VariantProvider({
 }
 
 /**
- * Product pictures: `children` (the bottle) first, then the chosen box front and back.
+ * Product pictures: the bottle + box photo of the chosen colour first (or `children`, the drawn
+ * bottle, when it has none), then the box front and back.
  * Arrows, dots and a horizontal swipe move between them.
  */
 export function ProductGallery({
@@ -77,14 +78,16 @@ export function ProductGallery({
   const state = useVariant()
   const startX = useRef<number | null>(null)
   const active = state?.active
-  const pictures = [active?.front, active?.back].filter((p) => p != null)
-  if (!state || !active || !pictures.length) return <>{children}</>
+  const pictures = [active?.photo, active?.front, active?.back]
+  if (!state || !active || !pictures.some((p) => p != null)) return <>{children}</>
 
-  const count = pictures.length + 1
+  // slide 0 is the photo, or the drawn bottle in its place
+  const count = 3 - (active.front ? 0 : 1) - (active.back ? 0 : 1)
+  const slides = [pictures[0], ...pictures.slice(1).filter((p) => p != null)]
   const index = Math.min(state.slide, count - 1)
   const go = (step: number) => state.setSlide((index + step + count) % count)
-  const picture = index > 0 ? pictures[index - 1] : null
-  const names = ['Bottle', 'Box, front', 'Box, back']
+  const picture = slides[index] ?? null
+  const names = ['Bottle and box', 'Box, front', 'Box, back']
 
   return (
     <div
@@ -101,7 +104,7 @@ export function ProductGallery({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           alt={picture.alt}
-          className={`${className ?? ''} variant-image variant-photo`}
+          className={`${className ?? ''} variant-image variant-photo${index === 0 ? ' is-shot' : ''}`}
           draggable={false}
           key={picture.url}
           src={picture.url}

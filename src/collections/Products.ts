@@ -108,6 +108,16 @@ export const Products: CollectionConfig = {
           ],
         },
         {
+          name: 'photo',
+          label: 'Bottle + box photo',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description:
+              'Shown first in the product gallery and on the colour card. Best on a dark background, portrait (4:5).',
+          },
+        },
+        {
           type: 'row',
           fields: [
             {

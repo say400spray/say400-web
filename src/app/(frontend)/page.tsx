@@ -317,12 +317,22 @@ export default async function HomePage() {
                   }
                 >
                   <div className="product-card-visual">
-                    <Bottle
-                      accent={v.color}
-                      className="product-card-image"
-                      label={featured.name}
-                      tag={v.level || v.name}
-                    />
+                    {v.photo ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        alt={v.photo.alt}
+                        className="product-card-image product-shot"
+                        loading="lazy"
+                        src={v.photo.url}
+                      />
+                    ) : (
+                      <Bottle
+                        accent={v.color}
+                        className="product-card-image"
+                        label={featured.name}
+                        tag={v.level || v.name}
+                      />
+                    )}
                   </div>
                   <div className="product-card-body">
                     <p className="variant-card-colour">
