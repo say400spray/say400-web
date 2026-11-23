@@ -2,7 +2,8 @@
  * Uploads the bottle + box photos and attaches each to its colour of the Men Spray.
  * Files are read from PHOTOS_DIR, named after the colour: gold.png, rose.png, copper.png, red.png,
  * burgundy.png (any colour without a file is left as it is). The Gold photo also becomes the main
- * product image, shown in the hero.
+ * product image, shown in the hero. Photos with a transparent background (cut-outs) work best:
+ * the empty margin around the product is trimmed.
  * Run with: PHOTOS_DIR=/path pnpm payload run src/scripts/set-variant-photos.ts
  */
 import config from '@payload-config'
@@ -26,7 +27,12 @@ const product = docs[0]
 if (!product) throw new Error('Men Spray not found')
 
 const upload = async (file: string, alt: string) => {
-  const data = await sharp(file).resize({ width: 1400 }).webp({ quality: 86 }).toBuffer()
+  // cut-outs: drop the empty transparent margin so the product fills its space on the page
+  const data = await sharp(file)
+    .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 }, threshold: 30 })
+    .resize({ height: 1600, withoutEnlargement: true })
+    .webp({ quality: 88, alphaQuality: 100 })
+    .toBuffer()
   const media = await payload.create({
     collection: 'media',
     data: { alt },

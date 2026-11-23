@@ -5870,16 +5870,11 @@ html.age-pending::after {
   }
 }
 
-/* ---------- photos of the bottle and box (dark studio background) ----------
-   The edges fade into the page, so the photo never shows as a lighter rectangle. */
+/* ---------- photos of the bottle and box, cut out (transparent background) ----------
+   They sit straight on the page and its glow, with the same soft shadow as the drawn bottle. */
 .product-shot,
 .variant-photo.is-shot {
   object-fit: contain;
-  /* the fade reaches nothing at every edge, so no edge of the photo ever shows */
-  -webkit-mask-image: radial-gradient(ellipse closest-side at 50% 50%, #000 72%, transparent 100%);
-  mask-image: radial-gradient(ellipse closest-side at 50% 50%, #000 72%, transparent 100%);
-  /* the drop shadow is for the cut-out bottle; around a photo it would outline the rectangle */
-  filter: none;
 }
 
 /* every colour card keeps the same picture height, photo or drawn bottle */
@@ -5889,25 +5884,25 @@ html.age-pending::after {
 }
 
 .hero-product.product-shot {
-  height: min(640px, 72vh);
+  height: min(560px, 64vh);
 }
 
 .feature-image.product-shot,
 .feature-image.variant-photo.is-shot {
-  height: 560px;
+  height: 480px;
 }
 
 .product-card-image.product-shot {
-  height: 300px;
+  height: 250px;
 }
 
 @media (max-width: 860px) {
   .hero-product.product-shot {
-    height: 440px;
+    height: 380px;
   }
 
   .feature-image.product-shot,
   .feature-image.variant-photo.is-shot {
-    height: 440px;
+    height: 380px;
   }
 }
