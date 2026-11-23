@@ -150,30 +150,6 @@ if (textDoc?.variants?.length && textDoc.variants.every((v) => !v.level)) {
   payload.logger.info('Added collection texts to the box variants')
 }
 
-// 6, 10 and 12 ml; the 10 and 12 ml prices are placeholders and its first-order offer pays the 6 ml price
-const [sizedDoc] = (
-  await payload.find({
-    collection: 'products',
-    where: { slug: { equals: 'men-spray' } },
-    limit: 1,
-    depth: 0,
-  })
-).docs
-if (sizedDoc && !sizedDoc.sizes?.length) {
-  await payload.update({
-    collection: 'products',
-    id: sizedDoc.id,
-    data: {
-      sizes: [
-        { label: '6 ml', price: sizedDoc.price, priceEUR: sizedDoc.priceEUR },
-        { label: '10 ml', price: 59.99, priceEUR: 69.99 },
-        { label: '12 ml', price: 69.99, priceEUR: 79.99, firstOrderDeal: true },
-      ],
-    },
-  })
-  payload.logger.info('Added 6, 10 and 12 ml sizes to Men Spray')
-}
-
 // FAQ and announcement bar, only when still empty
 const faq = await payload.findGlobal({ slug: 'faq' })
 if (!faq.items?.length) {

@@ -123,51 +123,78 @@ export const defaultAnnouncement =
   'Free delivery to the UK & Europe · Discreet, unbranded packaging'
 
 /**
- * The five Say400 boxes. They differ only in colour and strength: the strength (mg) of each
- * colour comes from the client and is filled in in the admin.
+ * The five Say400 boxes, smallest to largest. Each box colour has its own bottle and volume,
+ * and the level grows with the volume. Prices are approximate until the client sets them.
+ * All boxes are printed "6 ml": the bottle inside holds the volume below (see the FAQ).
  */
 export const sprayBoxes = [
-  // lightest to strongest; levels and texts are placeholders until the client confirms the mg per colour
-  {
-    name: 'Rose',
-    color: '#c47a9b',
-    file: 'cutie-3',
-    level: 'Gentle',
-    description: 'Our lightest formula. A subtle feel, ideal for a first try.',
-  },
   {
     name: 'Gold',
     color: '#d9b45e',
     file: 'cutie-1',
-    level: 'Standard',
-    description: 'The balanced, everyday choice and a good place to start.',
+    volume: '3 ml',
+    bottle: 'black capsule with a gold ring',
+    level: 'Gentle',
+    price: 19.99,
+    priceEUR: 22.99,
+    description: 'Our lightest, in a pocket-size 3 ml bottle. Ideal for a first try.',
   },
   {
     name: 'Copper',
     color: '#b98266',
     file: 'cutie-4',
-    level: 'Plus',
-    description: 'A step up from Standard, for when you want a little more.',
+    volume: '5 ml',
+    bottle: 'brown leather with silver rims',
+    level: 'Standard',
+    price: 34.99,
+    priceEUR: 39.99,
+    description: 'The balanced, everyday choice and a good place to start.',
   },
   {
     name: 'Red',
     color: '#c8323a',
     file: 'cutie-2',
-    level: 'Intense',
-    description: 'A stronger formula for a more noticeable feel.',
+    volume: '6 ml',
+    bottle: 'red matte aluminium with a silver ring',
+    level: 'Plus',
+    price: 39.99,
+    priceEUR: 45.99,
+    description: 'A step up from Standard, for when you want a little more.',
   },
   {
     name: 'Burgundy',
     color: '#8e2f2a',
     file: 'cutie-5',
+    volume: '11 ml',
+    bottle: 'violet ribbed aluminium with a silver ring',
+    level: 'Intense',
+    price: 59.99,
+    priceEUR: 69.99,
+    description: 'A stronger formula for a more noticeable feel.',
+  },
+  {
+    name: 'Rose',
+    color: '#c47a9b',
+    file: 'cutie-3',
+    volume: '12 ml',
+    bottle: 'pink leather with silver rims',
     level: 'Maximum',
+    price: 64.99,
+    priceEUR: 74.99,
     description: 'Our strongest formula, for experienced users. Always patch-test first.',
   },
 ]
 
+/** The printing mistake on the boxes, explained where customers look for the volume. */
+export const boxVolumeFaq = {
+  question: 'Why does my box say 6 ml?',
+  answer:
+    'All our boxes are printed with "6 ml" by mistake. The bottle inside holds the volume of the strength you choose: Gentle 3 ml, Standard 5 ml, Plus 6 ml, Intense 11 ml or Maximum 12 ml. You always receive the volume shown on the product page.',
+}
+
 /** Product information printed on the box, used where the details are still placeholders. */
 export const sprayBoxDetails = {
-  size: '6 ml',
+  size: '3–12 ml',
   ingredients: 'Acmella, Taurine, Damiana, Ginkgo Biloba, Ginseng',
   howToUse: sprayCopy.howToUse,
   warnings: sprayCopy.warnings,

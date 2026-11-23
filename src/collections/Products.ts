@@ -57,7 +57,7 @@ export const Products: CollectionConfig = {
     },
     {
       name: 'variants',
-      label: 'Variants (colour & strength)',
+      label: 'Variants (colour, volume & strength)',
       type: 'array',
       labels: { singular: 'Variant', plural: 'Variants' },
       admin: {
@@ -69,7 +69,12 @@ export const Products: CollectionConfig = {
           type: 'row',
           fields: [
             { name: 'name', type: 'text', required: true, admin: { placeholder: 'e.g. Gold' } },
-            { name: 'strength', type: 'text', admin: { placeholder: 'e.g. 50 mg' } },
+            {
+              name: 'strength',
+              label: 'Volume',
+              type: 'text',
+              admin: { placeholder: 'e.g. 12 ml', description: 'Shown next to the colour' },
+            },
             {
               name: 'color',
               label: 'Colour code',

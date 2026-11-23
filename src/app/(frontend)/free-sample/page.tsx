@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata = pageMeta(
   'Free sample',
-  'Try Say400 Men Spray for free: a 5 ml sample for the first customers, delivered in plain packaging to the UK and the EU. Adults 18+.',
+  'Try Say400 Men Spray for free: a 3 ml sample for the first customers, delivered in plain packaging to the UK and the EU. Adults 18+.',
   '/free-sample',
 )
 

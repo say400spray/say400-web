@@ -133,8 +133,8 @@ export const ShopSettings: GlobalConfig = {
           name: 'sampleLabel',
           label: 'What is sent',
           type: 'text',
-          defaultValue: '5 ml bottle',
-          admin: { description: 'Shown on the page, e.g. "5 ml bottle"' },
+          defaultValue: '3 ml bottle',
+          admin: { description: 'Shown on the page, e.g. "3 ml bottle"' },
         },
         {
           type: 'row',

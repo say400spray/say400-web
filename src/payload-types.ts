@@ -299,6 +299,9 @@ export interface Product {
   variants?:
     | {
         name: string;
+        /**
+         * Shown next to the colour
+         */
         strength?: string | null;
         /**
          * Colour of the dot customers click
@@ -1170,7 +1173,7 @@ export interface ShopSetting {
      */
     reviewEmailDays?: number | null;
     /**
-     * Shown on the page, e.g. "5 ml bottle"
+     * Shown on the page, e.g. "3 ml bottle"
      */
     sampleLabel?: string | null;
     instagram?: string | null;
