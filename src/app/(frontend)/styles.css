@@ -3000,13 +3000,13 @@ label.checkbox {
   text-transform: uppercase;
 }
 
-.offer-bottle svg {
+.offer-bottle :is(svg, img) {
   height: 130px;
   width: auto;
   filter: drop-shadow(0 0 24px rgba(249, 207, 115, 0.18));
 }
 
-.offer-bottle.is-small svg {
+.offer-bottle.is-small :is(svg, img) {
   height: 92px;
   opacity: 0.7;
 }
@@ -4336,7 +4336,7 @@ textarea {
   transform-origin: bottom center;
 }
 
-.sample-cta-bottle svg {
+.sample-cta-bottle :is(svg, img) {
   display: block;
   width: auto;
   height: 150px;
@@ -4359,7 +4359,7 @@ textarea {
   animation: float 6s ease-in-out infinite;
 }
 
-.sample-cta-bottle.is-1 svg {
+.sample-cta-bottle.is-1 :is(svg, img) {
   height: 180px;
   filter: drop-shadow(0 0 28px rgba(249, 207, 115, 0.28))
     drop-shadow(0 16px 24px rgba(0, 0, 0, 0.6));
@@ -4483,7 +4483,7 @@ textarea {
     margin-top: -6px;
   }
 
-  .sample-cta-bottle svg {
+  .sample-cta-bottle :is(svg, img) {
     height: 118px;
   }
 
@@ -4491,7 +4491,7 @@ textarea {
     margin-left: -26px;
   }
 
-  .sample-cta-bottle.is-1 svg {
+  .sample-cta-bottle.is-1 :is(svg, img) {
     height: 142px;
   }
 

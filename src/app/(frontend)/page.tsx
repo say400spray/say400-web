@@ -638,11 +638,12 @@ export default async function HomePage() {
         <section className="section sample-cta">
           <div className="container">
             <Link className="sample-cta-card" data-reveal href="/free-sample">
-              {/* three of the boxes, the middle one in front */}
+              {/* the real sample bottle, three times, the middle one in front */}
               <div aria-hidden className="sample-cta-visual">
-                {[collection[0], collection[1], collection[collection.length - 1]].map((box, i) => (
+                {[0, 1, 2].map((i) => (
                   <span className={`sample-cta-bottle is-${i}`} key={i}>
-                    <Bottle accent={box?.color} tag={samples.sampleLabel} />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img alt="" height={900} src="/brand/sample-bottle.webp" width={199} />
                   </span>
                 ))}
               </div>

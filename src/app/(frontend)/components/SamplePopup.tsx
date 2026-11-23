@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
-import { Bottle } from './Bottle'
 
 const SEEN_KEY = 'free_sample_popup_seen'
 // long enough that the visitor has looked around first
@@ -70,7 +69,8 @@ export function SamplePopup({
 
         <div aria-hidden className="offer-visual sample-popup-visual">
           <div className="offer-bottle">
-            <Bottle />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt="" height={900} src="/brand/sample-bottle.webp" width={199} />
             <span>{sampleLabel}</span>
           </div>
         </div>

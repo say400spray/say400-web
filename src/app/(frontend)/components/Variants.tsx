@@ -45,14 +45,13 @@ export function VariantProvider({
   const chosen = variants.find((v) => v.id === initial)
   const [activeId, setActiveId] = useState(chosen?.id ?? variants[0]?.id)
   const [sizeId, setSize] = useState(sizes[0]?.id)
-  // arriving with a chosen box shows that box instead of the bottle
-  const [slide, setSlide] = useState(chosen ? 1 : 0)
+  // the gallery always starts on the bottle + box photo
+  const [slide, setSlide] = useState(0)
   const active = variants.find((v) => v.id === activeId) ?? variants[0]
   const size = sizes.find((s) => s.id === sizeId) ?? sizes[0]
-  // picking a colour shows that box straight away
   const setActive = (id: string) => {
     setActiveId(id)
-    setSlide(1)
+    setSlide(0)
   }
   return (
     <VariantContext.Provider
