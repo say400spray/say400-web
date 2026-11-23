@@ -123,6 +123,17 @@ export const Products: CollectionConfig = {
           },
         },
         {
+          name: 'gallery',
+          label: 'More photos',
+          type: 'upload',
+          relationTo: 'media',
+          hasMany: true,
+          admin: {
+            description:
+              'Optional. Shown in the product gallery after the main photo, before the box front and back. Portrait (4:5) works best.',
+          },
+        },
+        {
           type: 'row',
           fields: [
             {

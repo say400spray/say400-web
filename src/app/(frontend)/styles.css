@@ -5924,3 +5924,24 @@ html.age-pending::after {
     height: 320px;
   }
 }
+
+/* ---------- scene photos in the product gallery (full photos, not cut-outs) ---------- */
+.feature-image.variant-photo.is-scene {
+  height: 440px;
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  filter: none;
+  box-shadow:
+    0 30px 60px -30px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(249, 207, 115, 0.1);
+}
+
+@media (max-width: 860px) {
+  .feature-image.variant-photo.is-scene {
+    height: 360px;
+  }
+}

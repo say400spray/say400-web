@@ -16,6 +16,8 @@ export type VariantOption = {
   priceEUR?: number | null
   /** bottle and box together, shown first */
   photo: Picture | null
+  /** more photos (scenes), shown after the main photo */
+  gallery: Picture[]
   front: Picture | null
   back: Picture | null
 }
@@ -61,6 +63,7 @@ export const toVariantOption = (variant: ProductVariant & { id: string }): Varia
   price: variant.price,
   priceEUR: variant.priceEUR,
   photo: picture(variant.photo),
+  gallery: (variant.gallery ?? []).map(picture).filter((p): p is Picture => p != null),
   front: picture(variant.front),
   back: picture(variant.back),
 })

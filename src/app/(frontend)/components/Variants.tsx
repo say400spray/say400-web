@@ -77,16 +77,20 @@ export function ProductGallery({
   const state = useVariant()
   const startX = useRef<number | null>(null)
   const active = state?.active
-  const pictures = [active?.photo, active?.front, active?.back]
-  if (!state || !active || !pictures.some((p) => p != null)) return <>{children}</>
+  if (!state || !active || !(active.photo || active.gallery.length || active.front || active.back))
+    return <>{children}</>
 
-  // slide 0 is the photo, or the drawn bottle in its place
-  const count = 3 - (active.front ? 0 : 1) - (active.back ? 0 : 1)
-  const slides = [pictures[0], ...pictures.slice(1).filter((p) => p != null)]
+  // slide 0 is the photo, or the drawn bottle in its place; then the scenes, then the box sides
+  const slides = [
+    { picture: active.photo, name: 'Bottle and box', kind: 'shot' },
+    ...active.gallery.map((picture, i) => ({ picture, name: `Photo ${i + 2}`, kind: 'scene' })),
+    ...(active.front ? [{ picture: active.front, name: 'Box, front', kind: 'box' }] : []),
+    ...(active.back ? [{ picture: active.back, name: 'Box, back', kind: 'box' }] : []),
+  ]
+  const count = slides.length
   const index = Math.min(state.slide, count - 1)
   const go = (step: number) => state.setSlide((index + step + count) % count)
-  const picture = slides[index] ?? null
-  const names = ['Bottle and box', 'Box, front', 'Box, back']
+  const { picture, kind } = slides[index]
 
   return (
     <div
@@ -103,7 +107,7 @@ export function ProductGallery({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           alt={picture.alt}
-          className={`${className ?? ''} variant-image variant-photo${index === 0 ? ' is-shot' : ''}`}
+          className={`${className ?? ''} variant-image variant-photo${kind === 'box' ? '' : ` is-${kind}`}`}
           draggable={false}
           key={picture.url}
           src={picture.url}
@@ -124,10 +128,10 @@ export function ProductGallery({
         type="button"
       />
       <div className="gallery-dots" role="group" aria-label="Product images">
-        {Array.from({ length: count }, (_, i) => (
+        {slides.map((slide, i) => (
           <button
             aria-current={i === index}
-            aria-label={names[i]}
+            aria-label={slide.name}
             key={i}
             onClick={() => state.setSlide(i)}
             type="button"

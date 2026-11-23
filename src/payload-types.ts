@@ -322,6 +322,10 @@ export interface Product {
          */
         photo?: (number | null) | Media;
         /**
+         * Optional. Shown in the product gallery after the main photo, before the box front and back. Portrait (4:5) works best.
+         */
+        gallery?: (number | Media)[] | null;
+        /**
          * Short name shown on the collection card
          */
         level?: string | null;
@@ -930,6 +934,7 @@ export interface ProductsSelect<T extends boolean = true> {
         front?: T;
         back?: T;
         photo?: T;
+        gallery?: T;
         level?: T;
         description?: T;
         active?: T;
