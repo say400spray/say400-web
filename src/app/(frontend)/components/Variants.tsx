@@ -183,7 +183,8 @@ export function VariantPicker() {
   return (
     <div className="variants">
       <p className="variants-label">
-        Choose your strength: <strong>{[active.name, level].filter(Boolean).join(' · ')}</strong>
+        Choose your strength:{' '}
+        <strong>{[active.name, active.level, active.strength].filter(Boolean).join(' · ')}</strong>
       </p>
       <div className="variant-chips" role="radiogroup" aria-label="Colour and strength">
         {variants.map((v) => (
