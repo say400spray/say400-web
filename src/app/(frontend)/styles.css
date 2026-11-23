@@ -5689,6 +5689,24 @@ html.age-pending::after {
   scroll-snap-align: start;
 }
 
+/* wide screens: up to three cards share the row and are shown whole (the arrows hide
+   themselves when everything fits); more cards keep scrolling */
+@media (min-width: 900px) {
+  .carousel-track > * {
+    flex: 1 0 calc((100% - 48px) / 3);
+  }
+}
+
+/* phones and tablets: the row runs to the edges of the screen, so cards slide out of view
+   instead of being cut at the page margin; the first card still lines up with the text */
+@media (max-width: 899px) {
+  .carousel-track {
+    margin: 0 -20px;
+    padding-inline: 20px;
+    scroll-padding-inline: 20px;
+  }
+}
+
 .carousel-nav {
   display: flex;
   justify-content: center;
