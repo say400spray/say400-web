@@ -58,7 +58,7 @@ for (const variant of product.variants ?? []) {
   }
   const id = await upload(
     file,
-    `Say400 men spray: black bottle with a gold ring next to the ${variant.name} box`,
+    `Say400 men spray: ${[variant.strength, 'bottle'].filter(Boolean).join(' ')} next to the ${variant.name} box`,
   )
   if (variant.name.toLowerCase() === 'gold') heroImage = id
   variants.push({ ...variant, photo: id })
