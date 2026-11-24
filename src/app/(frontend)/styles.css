@@ -5945,3 +5945,86 @@ html.age-pending::after {
     height: 360px;
   }
 }
+
+/* ---------- product gallery: click a photo to see it full screen ---------- */
+.gallery-zoom {
+  display: contents;
+  cursor: zoom-in;
+}
+
+.gallery-zoom img {
+  cursor: zoom-in;
+}
+
+.gallery-zoom:focus-visible img {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.gallery-lightbox {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.gallery-lightbox[open] {
+  display: grid;
+  place-items: center;
+}
+
+.gallery-lightbox::backdrop {
+  background: rgba(5, 5, 5, 0.94);
+  backdrop-filter: blur(4px);
+}
+
+.gallery-lightbox img {
+  max-width: min(94vw, 1100px);
+  max-height: 92dvh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  cursor: zoom-out;
+  pointer-events: none;
+}
+
+.gallery-lightbox .gallery-arrow.is-prev {
+  left: 16px;
+}
+
+.gallery-lightbox .gallery-arrow.is-next {
+  right: 16px;
+}
+
+.gallery-lightbox-close {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: rgba(7, 7, 7, 0.6);
+  cursor: pointer;
+}
+
+.gallery-lightbox-close::before,
+.gallery-lightbox-close::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 16px;
+  height: 1.5px;
+  background: var(--gold-light);
+  rotate: 45deg;
+}
+
+.gallery-lightbox-close::after {
+  rotate: -45deg;
+}

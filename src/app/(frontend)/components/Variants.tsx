@@ -76,6 +76,9 @@ export function ProductGallery({
 }) {
   const state = useVariant()
   const startX = useRef<number | null>(null)
+  // a swipe ends with a click too: it must not open the enlarged view
+  const swiped = useRef(false)
+  const zoomDialog = useRef<HTMLDialogElement>(null)
   const active = state?.active
   const front = active?.showBoxSides ? active.front : null
   const back = active?.showBoxSides ? active.back : null
@@ -97,25 +100,72 @@ export function ProductGallery({
   return (
     <div
       className="gallery"
-      onPointerDown={(e) => (startX.current = e.clientX)}
+      onPointerDown={(e) => {
+        startX.current = e.clientX
+        swiped.current = false
+      }}
       onPointerUp={(e) => {
         const dx = startX.current == null ? 0 : e.clientX - startX.current
         startX.current = null
-        if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1)
+        if (Math.abs(dx) > 40) {
+          swiped.current = true
+          go(dx < 0 ? 1 : -1)
+        }
       }}
     >
       {picture ? (
-        // keyed so a new box or side fades in instead of swapping abruptly
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          alt={picture.alt}
-          className={`${className ?? ''} variant-image variant-photo${kind === 'box' ? '' : ` is-${kind}`}`}
-          draggable={false}
-          key={picture.url}
-          src={picture.url}
-        />
+        <button
+          aria-label="Enlarge image"
+          className="gallery-zoom"
+          onClick={() => !swiped.current && zoomDialog.current?.showModal()}
+          type="button"
+        >
+          {/* keyed so a new box or side fades in instead of swapping abruptly */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt={picture.alt}
+            className={`${className ?? ''} variant-image variant-photo${kind === 'box' ? '' : ` is-${kind}`}`}
+            draggable={false}
+            key={picture.url}
+            src={picture.url}
+          />
+        </button>
       ) : (
         children
+      )}
+      {picture && (
+        // full-screen view to read the box print; Esc, the close button or a click outside closes it
+        <dialog
+          aria-label={picture.alt}
+          className="gallery-lightbox"
+          onClick={(e) => e.target === e.currentTarget && zoomDialog.current?.close()}
+          ref={zoomDialog}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img alt={picture.alt} src={picture.url} />
+          <button
+            aria-label="Close"
+            className="gallery-lightbox-close"
+            onClick={() => zoomDialog.current?.close()}
+            type="button"
+          />
+          {count > 1 && (
+            <>
+              <button
+                aria-label="Previous image"
+                className="gallery-arrow is-prev"
+                onClick={() => go(-1)}
+                type="button"
+              />
+              <button
+                aria-label="Next image"
+                className="gallery-arrow is-next"
+                onClick={() => go(1)}
+                type="button"
+              />
+            </>
+          )}
+        </dialog>
       )}
       <button
         aria-label="Previous image"

@@ -48,8 +48,9 @@ for (const variant of product.variants ?? []) {
   const ids = []
   for (const name of mine) {
     const data = await sharp(path.join(dir, name))
-      .resize({ height: 1500, withoutEnlargement: true })
-      .webp({ quality: 85 })
+      // large enough to read the box print when the photo is enlarged
+      .resize({ height: 2400, withoutEnlargement: true })
+      .webp({ quality: 88 })
       .toBuffer()
     const scene = Object.keys(scenes).find((k) => name.includes(k))
     const media = await payload.create({
