@@ -77,15 +77,17 @@ export function ProductGallery({
   const state = useVariant()
   const startX = useRef<number | null>(null)
   const active = state?.active
-  if (!state || !active || !(active.photo || active.gallery.length || active.front || active.back))
+  const front = active?.showBoxSides ? active.front : null
+  const back = active?.showBoxSides ? active.back : null
+  if (!state || !active || !(active.photo || active.gallery.length || front || back))
     return <>{children}</>
 
   // slide 0 is the photo, or the drawn bottle in its place; then the scenes, then the box sides
   const slides = [
     { picture: active.photo, name: 'Bottle and box', kind: 'shot' },
     ...active.gallery.map((picture, i) => ({ picture, name: `Photo ${i + 2}`, kind: 'scene' })),
-    ...(active.front ? [{ picture: active.front, name: 'Box, front', kind: 'box' }] : []),
-    ...(active.back ? [{ picture: active.back, name: 'Box, back', kind: 'box' }] : []),
+    ...(front ? [{ picture: front, name: 'Box, front', kind: 'box' }] : []),
+    ...(back ? [{ picture: back, name: 'Box, back', kind: 'box' }] : []),
   ]
   const count = slides.length
   const index = Math.min(state.slide, count - 1)

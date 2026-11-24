@@ -134,6 +134,16 @@ export const Products: CollectionConfig = {
           },
         },
         {
+          name: 'showBoxSides',
+          label: 'Show the box front and back in the gallery',
+          type: 'checkbox',
+          defaultValue: true,
+          admin: {
+            description:
+              'Untick when "More photos" already shows the box. The box front is still used at checkout and for Google.',
+          },
+        },
+        {
           type: 'row',
           fields: [
             {

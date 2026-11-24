@@ -326,6 +326,10 @@ export interface Product {
          */
         gallery?: (number | Media)[] | null;
         /**
+         * Untick when "More photos" already shows the box. The box front is still used at checkout and for Google.
+         */
+        showBoxSides?: boolean | null;
+        /**
          * Short name shown on the collection card
          */
         level?: string | null;
@@ -935,6 +939,7 @@ export interface ProductsSelect<T extends boolean = true> {
         back?: T;
         photo?: T;
         gallery?: T;
+        showBoxSides?: T;
         level?: T;
         description?: T;
         active?: T;

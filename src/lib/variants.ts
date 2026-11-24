@@ -18,6 +18,8 @@ export type VariantOption = {
   photo: Picture | null
   /** more photos (scenes), shown after the main photo */
   gallery: Picture[]
+  /** false when the box front and back stay out of the gallery */
+  showBoxSides: boolean
   front: Picture | null
   back: Picture | null
 }
@@ -64,6 +66,7 @@ export const toVariantOption = (variant: ProductVariant & { id: string }): Varia
   priceEUR: variant.priceEUR,
   photo: picture(variant.photo),
   gallery: (variant.gallery ?? []).map(picture).filter((p): p is Picture => p != null),
+  showBoxSides: variant.showBoxSides !== false,
   front: picture(variant.front),
   back: picture(variant.back),
 })
